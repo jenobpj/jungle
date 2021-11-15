@@ -15,9 +15,12 @@ class SessionsController < ApplicationController
     else 
       render :new
     end
-    
+
   end
 
   def destroy
+    # Remove the cookie
+    session[:user_id] = nil
+    redirect_to :root
   end
 end
