@@ -72,12 +72,18 @@ RSpec.describe User, type: :model do
       expect(subject.errors.full_messages).to be_empty
     end
   end
-  
+
   describe '.authenticate_with_credentials' do
     it "authenticates when credentials are valid" do
       subject.save!
       auth = User.authenticate_with_credentials(subject.email, subject.password)
       expect(auth).to eq subject
+    end
+
+    it "doesn't authenticate when email is incorrect" do
+      subject.save!
+      auth = User.authenticate_with_credentials("other@gmail.com", subject.password)
+      expect(auth).to eq nil
     end
   end
 end
