@@ -8,8 +8,6 @@ RSpec.describe Product, type: :model do
   subject {
     category.products.create(
       name: "testProduct",
-      description: "this is a test product",
-      image: "testImage",
       price_cents: 995,
       quantity: 15,
     )
@@ -30,6 +28,11 @@ RSpec.describe Product, type: :model do
       subject.price_cents = nil
       expect(subject).to_not be_valid
       expect(subject.errors.full_messages).to include "Price can't be blank"
+    end
+    it "is not valid without a quantity" do
+      subject.quantity = nil
+      expect(subject).to_not be_valid
+      expect(subject.errors.full_messages).to include "Quantity can't be blank"
     end
   end
 end
