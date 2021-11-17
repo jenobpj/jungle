@@ -20,10 +20,11 @@ RSpec.describe Product, type: :model do
       expect(subject).to be_valid
       expect(subject.errors.full_messages).to be_empty
     end
-    it "is not valid when password and password_confirmation don't match" do
-      user = User.new(first_name: "Test", last_name: "Person", email: "test1@gmail.com", password: "something", password_confirmation: "else")
-      expect(user).to_not be_valid
-      expect(user.errors.full_messages).to include ("Password confirmation doesn't match Password")
+    
+    it "is not valid without a name" do
+      subject.name = nil
+      expect(subject).to_not be_valid
+      expect(subject.errors.full_messages.first).to eq "Name can't be blank"
     end
   end
 end
